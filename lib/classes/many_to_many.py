@@ -5,6 +5,7 @@ class Article:
         self.author = author
         self.magazine = magazine
         self.title = title
+        
 
     @property
     def title(self):
@@ -77,11 +78,12 @@ class Author:
         
 
 class Magazine:
+    all = []
     def __init__(self, name, category):
         self.name = name
         self.category = category
+        self.all.append(self)
         self._articles = []
-        self._authors = []
 
     
     @property
@@ -131,4 +133,17 @@ class Magazine:
         contributing_authors = {author for author in list_of_authors if list_of_authors.count(author) > 2}    
 
         return None if not list(contributing_authors) else list(contributing_authors)
+
+    @classmethod
+    def top_publisher(cls):
+        list_of_magazines = []
+        for article in Article.all:
+            list_of_magazines.append(article.magazine)
+
+        return None if not list_of_magazines else max(set(list_of_magazines), key = list_of_magazines.count)
+            
+            
+
+        
+
         
